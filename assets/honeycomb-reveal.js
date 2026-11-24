@@ -9,7 +9,7 @@
   const buttons = [...controls.querySelectorAll('[data-view]')];
   const model = section.querySelector('.hc-model');
   const state = { progress: 1 };
-  let trigger, media, disposed = false;
+  let trigger, media, mobileView, disposed = false;
   const clamp = value => Math.max(0, Math.min(1, value));
   const render = () => {
     const progress = state.progress;
@@ -22,7 +22,10 @@
   };
   const selectView = event => {
     const exploded = event.currentTarget.dataset.view === 'exploded';
-    if (trigger) {
+    if (mobileView) {
+      // The view is independent of page position on phones.
+      mobileView.select(exploded ? 1 : 0);
+    } else if (trigger) {
       const target = exploded ? .95 : .02;
       window.scrollTo({ top: trigger.start + (trigger.end - trigger.start) * target, behavior: 'smooth' });
     } else {
@@ -62,6 +65,49 @@
       if (!context.conditions.animate || context.conditions.short) return;
       const mobile = context.conditions.mobile;
       section.classList.add('hc-scroll');
+      if (mobile) {
+        let manual = false;
+        const events = new AbortController();
+        const reveal = progress => {
+          const p = clamp((progress - config.revealStart) / (config.revealEnd - config.revealStart));
+          return p * p * (3 - 2 * p);
+        };
+        const move = gsap.quickTo(state, 'progress', {
+          duration: .4, ease: 'power2.out', onUpdate: render,
+        });
+        const resume = () => {
+          if (!manual) return;
+          manual = false;
+          move(reveal(trigger.progress));
+        };
+        trigger = ScrollTrigger.create({
+          id: 'honeycomb-layers', trigger: section,
+          start: 'top 70%',
+          end: () => `top ${document.querySelector('header').offsetHeight + 16}px`,
+          invalidateOnRefresh: true,
+          onUpdate: self => { if (!manual) move(reveal(self.progress)); },
+          onRefresh: self => {
+            if (!manual) { move.tween.pause(); state.progress = reveal(self.progress); render(); }
+          },
+        });
+        mobileView = { select(value) { manual = true; move(value); } };
+        // Only a deliberate scroll gesture resumes the automatic reveal.
+        document.addEventListener('touchmove', resume, { passive: true, signal: events.signal });
+        document.addEventListener('wheel', resume, { passive: true, signal: events.signal });
+        document.addEventListener('click', event => {
+          if (event.target.closest('a[href="#material"]')) resume();
+        }, { signal: events.signal });
+        document.addEventListener('keydown', event => {
+          if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' '].includes(event.key) && !event.target.matches('input,textarea,select')) resume();
+        }, { signal: events.signal });
+        return () => {
+          events.abort();
+          move.tween.kill();
+          trigger?.kill(); trigger = undefined; mobileView = undefined;
+          section.classList.remove('hc-scroll');
+          state.progress = 1; render();
+        };
+      }
       const tween = gsap.to(state, {
         progress: 1, duration: 1,
         ease: value => {
