@@ -1,0 +1,38 @@
+/* Editorial typography shared by the product section headings. */
+main h2,
+.pc-copy h2,
+#material h2,
+#why .construction-heading h2 {
+  font-family: 'Montaga', Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -.035em;
+  text-wrap: balance;
+}
+
+main h2 em,
+.pc-copy h2 em,
+#material h2 em {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 1em;
+  font-weight: 400;
+  letter-spacing: -.015em;
+}
+
+#material .hc-material h3 {
+  font-family: 'Manrope', Arial, sans-serif;
+  font-weight: 600;
+  letter-spacing: -.02em;
+}
+
+#built h2 {
+  letter-spacing: -.025em;
+}
+
+@media (max-width: 767px) {
+  main h2,
+  .pc-copy h2,
+  #material h2,
+  #why .construction-heading h2 {
+    letter-spacing: -.025em;
+  }
+}

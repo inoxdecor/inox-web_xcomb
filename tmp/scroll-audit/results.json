@@ -1,0 +1,454 @@
+[
+  {
+    "name": "desktop",
+    "errors": [],
+    "badResponses": [],
+    "warnings": [],
+    "blankFrames": [],
+    "overlap": [],
+    "overflow": [],
+    "transition": [
+      {
+        "y": 2731,
+        "gap": 0,
+        "stageTop": 0,
+        "pcBottom": 1061.796875
+      },
+      {
+        "y": 2901,
+        "gap": 0,
+        "stageTop": 0,
+        "pcBottom": 891.796875
+      },
+      {
+        "y": 2931,
+        "gap": 0,
+        "stageTop": -0.203125,
+        "pcBottom": 861.796875
+      },
+      {
+        "y": 3031,
+        "gap": 0,
+        "stageTop": -100.203125,
+        "pcBottom": 761.796875
+      },
+      {
+        "y": 3331,
+        "gap": 0,
+        "stageTop": -400.203125,
+        "pcBottom": 461.796875
+      }
+    ],
+    "afterResize": {
+      "gap": 0,
+      "spacers": 0,
+      "stuck": false,
+      "overflow": false
+    }
+  },
+  {
+    "name": "laptop",
+    "errors": [],
+    "badResponses": [],
+    "warnings": [],
+    "blankFrames": [],
+    "overlap": [],
+    "overflow": [],
+    "transition": [
+      {
+        "y": 2860,
+        "gap": 0,
+        "stageTop": 0,
+        "pcBottom": 1100
+      },
+      {
+        "y": 3030,
+        "gap": 0,
+        "stageTop": 0,
+        "pcBottom": 930
+      },
+      {
+        "y": 3060,
+        "gap": 0,
+        "stageTop": 0,
+        "pcBottom": 900
+      },
+      {
+        "y": 3160,
+        "gap": 0,
+        "stageTop": -100,
+        "pcBottom": 800
+      },
+      {
+        "y": 3460,
+        "gap": 0,
+        "stageTop": -400,
+        "pcBottom": 500
+      }
+    ],
+    "afterResize": {
+      "gap": 0,
+      "spacers": 0,
+      "stuck": false,
+      "overflow": false
+    }
+  },
+  {
+    "name": "tablet",
+    "errors": [],
+    "badResponses": [],
+    "warnings": [],
+    "blankFrames": [],
+    "overlap": [],
+    "overflow": [],
+    "transition": [
+      {
+        "y": 2493,
+        "gap": 0,
+        "stageTop": 0,
+        "pcBottom": 968.1875
+      },
+      {
+        "y": 2663,
+        "gap": 0,
+        "stageTop": 0,
+        "pcBottom": 798.1875
+      },
+      {
+        "y": 2693,
+        "gap": 0,
+        "stageTop": 0,
+        "pcBottom": 768.1875
+      },
+      {
+        "y": 2793,
+        "gap": 0,
+        "stageTop": -99.8125,
+        "pcBottom": 668.1875
+      },
+      {
+        "y": 3093,
+        "gap": 0,
+        "stageTop": -399.8125,
+        "pcBottom": 368.1875
+      }
+    ],
+    "afterResize": {
+      "gap": 0,
+      "spacers": 0,
+      "stuck": false,
+      "overflow": false
+    }
+  },
+  {
+    "name": "mobile",
+    "errors": [],
+    "badResponses": [],
+    "warnings": [],
+    "blankFrames": [],
+    "overlap": [],
+    "overflow": [],
+    "transition": [
+      {
+        "y": 2826,
+        "gap": 0,
+        "stageTop": 0,
+        "pcBottom": 1043.59375
+      },
+      {
+        "y": 2996,
+        "gap": 0,
+        "stageTop": 0,
+        "pcBottom": 873.59375
+      },
+      {
+        "y": 3026,
+        "gap": 0,
+        "stageTop": -0.40625,
+        "pcBottom": 843.59375
+      },
+      {
+        "y": 3126,
+        "gap": 0,
+        "stageTop": -100.40625,
+        "pcBottom": 743.59375
+      },
+      {
+        "y": 3426,
+        "gap": 0,
+        "stageTop": -400.40625,
+        "pcBottom": 443.59375
+      }
+    ],
+    "afterResize": {
+      "gap": 0,
+      "spacers": 0,
+      "stuck": false,
+      "overflow": false
+    }
+  },
+  {
+    "name": "short-mobile",
+    "errors": [],
+    "badResponses": [],
+    "warnings": [],
+    "blankFrames": [],
+    "overlap": [],
+    "overflow": [],
+    "transition": [
+      {
+        "y": 800,
+        "gap": 0,
+        "stageTop": 200,
+        "pcBottom": 983.375
+      },
+      {
+        "y": 970,
+        "gap": 0,
+        "stageTop": 30,
+        "pcBottom": 813.375
+      },
+      {
+        "y": 1000,
+        "gap": 0,
+        "stageTop": 0,
+        "pcBottom": 783.375
+      },
+      {
+        "y": 1100,
+        "gap": 0,
+        "stageTop": -100,
+        "pcBottom": 683.375
+      },
+      {
+        "y": 1400,
+        "gap": 0,
+        "stageTop": -400,
+        "pcBottom": 383.375
+      }
+    ],
+    "afterResize": {
+      "gap": 0,
+      "spacers": 0,
+      "stuck": false,
+      "overflow": false
+    }
+  },
+  {
+    "name": "small-mobile",
+    "errors": [],
+    "badResponses": [],
+    "warnings": [],
+    "blankFrames": [],
+    "overlap": [],
+    "overflow": [],
+    "transition": [
+      {
+        "y": 800,
+        "gap": 0,
+        "stageTop": 200,
+        "pcBottom": 967.109375
+      },
+      {
+        "y": 970,
+        "gap": 0,
+        "stageTop": 30,
+        "pcBottom": 797.109375
+      },
+      {
+        "y": 1000,
+        "gap": 0,
+        "stageTop": 0,
+        "pcBottom": 767.109375
+      },
+      {
+        "y": 1100,
+        "gap": 0,
+        "stageTop": -100,
+        "pcBottom": 667.109375
+      },
+      {
+        "y": 1400,
+        "gap": 0,
+        "stageTop": -400,
+        "pcBottom": 367.109375
+      }
+    ],
+    "afterResize": {
+      "gap": 0,
+      "spacers": 0,
+      "stuck": false,
+      "overflow": false
+    }
+  },
+  {
+    "name": "reduced",
+    "errors": [],
+    "badResponses": [],
+    "warnings": [],
+    "blankFrames": [],
+    "overlap": [],
+    "overflow": [],
+    "transition": [
+      {
+        "y": 800,
+        "gap": 0,
+        "stageTop": 200,
+        "pcBottom": 983.375
+      },
+      {
+        "y": 970,
+        "gap": 0,
+        "stageTop": 30,
+        "pcBottom": 813.375
+      },
+      {
+        "y": 1000,
+        "gap": 0,
+        "stageTop": 0,
+        "pcBottom": 783.375
+      },
+      {
+        "y": 1100,
+        "gap": 0,
+        "stageTop": -100,
+        "pcBottom": 683.375
+      },
+      {
+        "y": 1400,
+        "gap": 0,
+        "stageTop": -400,
+        "pcBottom": 383.375
+      }
+    ],
+    "afterResize": {
+      "gap": 0,
+      "spacers": 0,
+      "stuck": false,
+      "overflow": false
+    }
+  },
+  {
+    "name": "no-js",
+    "errors": [],
+    "badResponses": [],
+    "warnings": [],
+    "blankFrames": [],
+    "overlap": [],
+    "overflow": [],
+    "transition": [
+      {
+        "y": 800,
+        "gap": 0,
+        "stageTop": 200,
+        "pcBottom": 983.375
+      },
+      {
+        "y": 970,
+        "gap": 0,
+        "stageTop": 30,
+        "pcBottom": 813.375
+      },
+      {
+        "y": 1000,
+        "gap": 0,
+        "stageTop": 0,
+        "pcBottom": 783.375
+      },
+      {
+        "y": 1100,
+        "gap": 0,
+        "stageTop": -100,
+        "pcBottom": 683.375
+      },
+      {
+        "y": 1400,
+        "gap": 0,
+        "stageTop": -400,
+        "pcBottom": 383.375
+      }
+    ]
+  },
+  {
+    "name": "no-gsap",
+    "errors": [],
+    "badResponses": [],
+    "warnings": [],
+    "blankFrames": [],
+    "overlap": [],
+    "overflow": [],
+    "transition": [
+      {
+        "y": 700,
+        "gap": 0,
+        "stageTop": 200,
+        "pcBottom": 1000
+      },
+      {
+        "y": 870,
+        "gap": 0,
+        "stageTop": 30,
+        "pcBottom": 830
+      },
+      {
+        "y": 900,
+        "gap": 0,
+        "stageTop": 0,
+        "pcBottom": 800
+      },
+      {
+        "y": 1000,
+        "gap": 0,
+        "stageTop": -100,
+        "pcBottom": 700
+      },
+      {
+        "y": 1300,
+        "gap": 0,
+        "stageTop": -400,
+        "pcBottom": 400
+      }
+    ]
+  },
+  {
+    "name": "missing-panel",
+    "errors": [],
+    "badResponses": [],
+    "warnings": [],
+    "blankFrames": [],
+    "overlap": [],
+    "overflow": [],
+    "transition": [
+      {
+        "y": 700,
+        "gap": 0,
+        "stageTop": 200,
+        "pcBottom": 1000
+      },
+      {
+        "y": 870,
+        "gap": 0,
+        "stageTop": 30,
+        "pcBottom": 830
+      },
+      {
+        "y": 900,
+        "gap": 0,
+        "stageTop": 0,
+        "pcBottom": 800
+      },
+      {
+        "y": 1000,
+        "gap": 0,
+        "stageTop": -100,
+        "pcBottom": 700
+      },
+      {
+        "y": 1300,
+        "gap": 0,
+        "stageTop": -400,
+        "pcBottom": 400
+      }
+    ]
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "name": "inox-honeycomb-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Standalone static INOX Honeycomb website for subdomain hosting",
+  "scripts": {
+    "dev": "node preview.mjs",
+    "start": "node preview.mjs"
+  }
+}
