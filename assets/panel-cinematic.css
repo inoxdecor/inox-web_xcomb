@@ -2,6 +2,7 @@
    are the complete presentation; JS only enables the scroll enhancement. */
 .pc-section{position:relative;color:#34323a;background:radial-gradient(ellipse at 65% 35%,#fafafa 0,transparent 65%),linear-gradient(125deg,#e9e9ed,#d9dce1);isolation:isolate}
 .pc-section .pc-stage{position:relative;height:100svh;min-height:680px;overflow:hidden}
+.pc-section.pc-animated .pc-stage{min-height:0}
 .pc-grid{position:absolute;inset:0;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='104' height='180'%3E%3Cpath d='M52 0L104 30V90L52 120L0 90V30ZM52 120V180' fill='none' stroke='%23545868'/%3E%3C/svg%3E");pointer-events:none}
 .pc-meta{position:absolute;inset:112px 4% auto;display:flex;justify-content:space-between;font:400 12px/1.5 var(--m);letter-spacing:.1em;color:#71717d}
 .pc-product{position:absolute;left:73%;top:49%;width:46%;transform:translate(-50%,-50%);pointer-events:none}
@@ -42,3 +43,12 @@
  .pc-section:not(.pc-animated) .pc-copy{left:auto;right:auto;bottom:auto;padding:0 24px 95px}
 }
 @media(min-width:768px) and (max-height:760px){.pc-meta{top:100px}.pc-copy h2{font-size:40px}.pc-description{margin:14px 0}.pc-copy{top:49%}.pc-product{top:53%}}
+@media(max-width:767px) and (min-height:580px) and (max-height:699px){
+ .pc-copy{bottom:58px}
+ .pc-copy h2{font-size:28px}
+ .pc-eyebrow{font-size:10px;margin-bottom:8px}
+ .pc-description{font-size:14px;line-height:1.45;margin:10px 0}
+ .pc-rows button{font-size:13px;padding:9px 0}
+ .pc-meta{inset:92px 24px auto}
+ .pc-footer{bottom:18px}
+}

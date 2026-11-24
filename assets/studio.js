@@ -6,8 +6,33 @@ const labels={shutter:'Shutter',carcass:'Carcass',core:'Aluminium Honeycomb Core
 $$('.fs button').forEach((b,i)=>b.addEventListener('click',()=>{$$('.fs button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));$('.mood-plane').style.background=b.style.background;$('.mood-plane').style.transform=`rotateX(55deg) rotateZ(${-30+i*5}deg)`;$('.mood-stage').style.background=`radial-gradient(ellipse at 40% 10%,#eeece6,${['#c1bec3','#928b92','#677075','#acb8a8','#8d9aa8','#bd9e9a'][i]})`;$('#mm').textContent=b.dataset.m+' selected as inspiration. INOX will confirm actual available colours, textures and finish options.'}));
 $$('[data-app]').forEach(a=>a.addEventListener('click',()=>{$('#app').value=a.dataset.app}));
 const form=$('#f'),message=$('#fm');$$('input:not([type=checkbox]),textarea',form).forEach(i=>i.maxLength=i.tagName==='TEXTAREA'?3000:150);message.textContent='Email draft only. Review and send your enquiry in your email app.';form.addEventListener('submit',e=>{e.preventDefault();const d=new FormData(form);if(d.get('website'))return;const name=String(d.get('name')||'').trim(),phone=String(d.get('phone')||'').trim(),email=String(d.get('email')||'').trim();function error(text,field){message.textContent=text;form.elements.namedItem(field)?.focus()}if(!name)return error('Please enter your full name.','name');if(!phone&&!email)return error('Please enter your phone number or email address.','phone');if(phone&&!/^[+0-9\s()-]{7,25}$/.test(phone))return error('Please enter a valid phone number.','phone');if(email&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))return error('Please enter a valid email address.','email');if(!form.elements.namedItem('consent').checked)return error('Please agree to share these details with INOX.','consent');const body=[`Name: ${name}`,`Phone: ${phone}`,`Email: ${email}`,`Customer type: ${d.get('type')}`,`Application: ${d.get('app')}`,`Project location: ${d.get('loc')}`,'',d.get('msg')].join('\n');message.textContent='Your email app will open with a draft. Send the email there to contact INOX; no enquiry has been submitted by this website.';location.href='mailto:info@inoxdecor.com?subject='+encodeURIComponent('INOX Aluminium Honeycomb — consultation')+'&body='+encodeURIComponent(body)});
-if(reduced||!window.gsap||!window.ScrollTrigger)return;gsap.registerPlugin(ScrollTrigger);const mm=gsap.matchMedia();gsap.from('.hero h1',{y:45,opacity:0,duration:1.3,ease:'power3.out',delay:.1});gsap.from('.hero-summary,.hero .btns,.hero-apps',{y:22,opacity:0,duration:1,stagger:.12,ease:'power3.out',delay:.25});gsap.from('.hero-architecture>img',{scale:1.12,duration:2,ease:'power2.out'});gsap.to('.hero-product>img',{y:-16,rotation:-3,duration:4,yoyo:true,repeat:-1,ease:'sine.inOut'});
-$$('.sec h2,.fixing-copy,.construction-heading>p').forEach(el=>gsap.from(el,{y:35,opacity:0,duration:1.1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 94%',once:true}}));$$('.adv li').forEach(el=>gsap.from(el,{x:mobile?0:35,y:mobile?15:0,opacity:0,duration:.8,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 95%',once:true}}));$$('.application-photo').forEach(el=>gsap.from(el.querySelector('img'),{clipPath:'inset(10% 0 10% 0)',scale:1.08,duration:1.3,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 94%',once:true}}));
-mm.add('(min-width:861px)',()=>{gsap.to('.hero-architecture>img',{yPercent:12,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}});gsap.to('.bl h2 span',{x:60,ease:'none',scrollTrigger:{trigger:'.bl',start:'top bottom',end:'bottom top',scrub:1.2}})});
-if(fine){$$('.tilt-surface').forEach(el=>{el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect();gsap.to(el,{rotateY:(e.clientX-r.left-r.width/2)/r.width*4,rotateX:-(e.clientY-r.top-r.height/2)/r.height*3,transformPerspective:1200,duration:.8,ease:'power2.out'})});el.addEventListener('pointerleave',()=>gsap.to(el,{rotateX:0,rotateY:0,duration:1}))});$$('.mag').forEach(el=>{el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect();gsap.to(el,{x:(e.clientX-r.left-r.width/2)*.12,y:(e.clientY-r.top-r.height/2)*.15,duration:.5})});el.addEventListener('pointerleave',()=>gsap.to(el,{x:0,y:0,duration:.5}))})}document.fonts.ready.then(()=>ScrollTrigger.refresh());addEventListener('load',()=>ScrollTrigger.refresh());
+
+// The form becomes usable only after its email-draft handler is registered.
+form.querySelector('[type="submit"]').disabled = false;
+if (!window.gsap || !window.ScrollTrigger) return;
+gsap.registerPlugin(ScrollTrigger);
+const motion = gsap.matchMedia();
+motion.add({ animate: '(prefers-reduced-motion:no-preference)', desktop: '(min-width:861px)' }, context => {
+  if (!context.conditions.animate) return;
+  gsap.from('.hero h1', { y:45, opacity:0, duration:1.3, ease:'power3.out', delay:.1 });
+  gsap.from('.hero-summary,.hero .btns,.hero-apps', { y:22, opacity:0, duration:1, stagger:.12, ease:'power3.out', delay:.25 });
+  gsap.from('.hero-architecture>img', { scale:1.12, duration:2, ease:'power2.out' });
+  $$('.sec h2,.fixing-copy,.construction-heading>p').forEach(el => gsap.from(el, { y:35, opacity:0, duration:1.1, ease:'power3.out', scrollTrigger:{trigger:el,start:'top 94%',once:true} }));
+  $$('.adv li').forEach(el => gsap.from(el, { x:context.conditions.desktop?35:0, y:context.conditions.desktop?0:15, opacity:0, duration:.8, ease:'power3.out', scrollTrigger:{trigger:el,start:'top 95%',once:true} }));
+  $$('.application-photo').forEach(el => gsap.from(el.querySelector('img'), { clipPath:'inset(10% 0 10% 0)', scale:1.08, duration:1.3, ease:'power3.out', scrollTrigger:{trigger:el,start:'top 94%',once:true} }));
+  if (context.conditions.desktop) {
+    gsap.to('.hero-architecture>img', { yPercent:12, ease:'none', scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1} });
+    gsap.to('.bl h2 span', { x:60, ease:'none', scrollTrigger:{trigger:'.bl',start:'top bottom',end:'bottom top',scrub:1.2} });
+  }
+});
+const refresh = () => ScrollTrigger.refresh();
+document.fonts.ready.then(refresh);
+addEventListener('load', refresh, { once:true });
+// No free-running product bobbing loop. MatchMedia reverts all animation styles
+// and triggers when reduced motion is enabled, including during this visit.
+addEventListener('pagehide', event => {
+  if (event.persisted) return;
+  gsap.getTweensOf('.hero h1,.hero-summary,.hero-architecture>img,.hero-apps,.hero .btns').forEach(tween => tween.pause());
+  removeEventListener('load', refresh);
+});
 })();

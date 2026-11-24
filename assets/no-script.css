@@ -1,0 +1,9 @@
+/* Keep section navigation usable and out of the content when JavaScript is off. */
+#hd{position:relative;background:#211b24}
+#hd .nav{height:auto;min-height:96px;flex-wrap:wrap;padding-block:16px}
+#hd .mb{display:none}
+#hd #nv{display:flex;position:static;flex-flow:row wrap;gap:12px 20px}
+@media(max-width:860px){
+  #hd #nv{width:100%;padding-top:10px;font-size:12px}
+  #hd .nav{gap:12px}
+}

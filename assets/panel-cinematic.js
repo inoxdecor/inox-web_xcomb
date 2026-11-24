@@ -6,6 +6,7 @@
   window.PANEL_CINEMATIC = settings;
   const section = document.querySelector('#panel-journey');
   if (!section || !window.gsap || !window.ScrollTrigger) return;
+  window.panelStudy?.destroy();
   const { gsap, ScrollTrigger } = window;
   gsap.registerPlugin(ScrollTrigger);
   const $ = s => section.querySelector(s);
@@ -57,15 +58,16 @@
     const image = new Image(); image.src = '/assets/original-aluminium-panel.png';
     try { await image.decode(); } catch { return; }
     if (disposed) return;
-    media.add({ mobile: '(max-width:767px)', desktop: '(min-width:768px)', reduce: '(prefers-reduced-motion:reduce)' }, context => {
-      if (context.conditions.reduce) return;
+    media.add({ mobile: '(max-width:767px)', desktop: '(min-width:768px)', reduce: '(prefers-reduced-motion:reduce)', short: '(max-height:579px)', compact: '(max-height:699px)' }, context => {
+      if (context.conditions.reduce || context.conditions.short) return;
       const mobile = context.conditions.mobile;
+      const compact = mobile && context.conditions.compact;
       rows.forEach(row => row.removeAttribute('aria-pressed'));
       section.classList.add('pc-animated');
       state.cover = 0; renderCover();
       state.lens = .04; state.cells = .97; renderLens();
       copy.inert = false; copy.removeAttribute('aria-hidden');
-      gsap.set(product, { left: '50%', top: mobile ? '33%' : '49%', width: mobile ? '78%' : '46%', xPercent: -50, yPercent: -50, x: 0, y: 0 });
+      gsap.set(product, { left: '50%', top: mobile ? (compact ? '27%' : '33%') : '49%', width: mobile ? (compact ? '68%' : '78%') : '46%', xPercent: -50, yPercent: -50, x: 0, y: 0 });
       gsap.set(copy, { autoAlpha: 1, yPercent: mobile ? 0 : -50, y: 0 });
       gsap.set(details, { autoAlpha: 0, y: 16 });
       details.forEach(el => { el.inert = true; el.setAttribute('aria-hidden', 'true'); });
@@ -99,7 +101,7 @@
       } });
       trigger = timeline.scrollTrigger;
       timeline.to({}, { duration: 1 }, 0)
-        .to(product, { left: mobile ? '50%' : '73%', top: mobile ? '29%' : '49%', duration: settings.coverEnd - settings.coverStart, ease: 'power2.inOut' }, settings.coverStart)
+        .to(product, { left: mobile ? '50%' : '73%', top: mobile ? (compact ? '27%' : '29%') : '49%', duration: settings.coverEnd - settings.coverStart, ease: 'power2.inOut' }, settings.coverStart)
         .to(details, { autoAlpha: 1, y: 0, duration: settings.detailsEnd - settings.detailsStart, ease: 'sine.inOut' }, settings.detailsStart)
         .to($('.pc-hint'), { left: mobile ? '50%' : '73%', duration: settings.coverEnd - settings.coverStart, ease: 'power2.inOut' }, settings.coverStart)
         .to($('.pc-hint'), { autoAlpha: 0, duration: .05 }, settings.coverStart)
@@ -129,8 +131,15 @@
     // The browser disposes this document. Reverting layout during pagehide
     // collapses the scroll track before history records the scroll position.
     disposed = true;
+    trigger?.animation?.pause();
     rows.forEach(row => row.removeEventListener('click', navigate));
     window.removeEventListener('pagehide', cleanup);
   };
   window.addEventListener('pagehide', cleanup);
+  window.panelStudy = { destroy() {
+    disposed = true;
+    media.revert();
+    rows.forEach(row => row.removeEventListener('click', navigate));
+    window.removeEventListener('pagehide', cleanup);
+  } };
 })();

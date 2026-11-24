@@ -6,6 +6,7 @@
   "description": "Standalone static INOX Honeycomb website for subdomain hosting",
   "scripts": {
     "dev": "node preview.mjs",
-    "start": "node preview.mjs"
+    "start": "node preview.mjs",
+    "check": "node scripts/check.mjs"
   }
 }

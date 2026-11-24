@@ -1,16 +1,94 @@
-﻿(() => {
+(() => {
   'use strict';
   const section = document.querySelector('#material.honeycomb-reveal');
-  if (!section) return;
+  const config = window.HONEYCOMB_CONFIG;
+  if (!section || !config) return;
+  // An accidental second script evaluation must not create another pin/listener.
+  window.honeycombReveal?.destroy();
   const controls = section.querySelector('.hc-view-control');
   const buttons = [...controls.querySelectorAll('[data-view]')];
   const model = section.querySelector('.hc-model');
-  const selectView = view => {
-    section.dataset.view = view;
-    buttons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.view === view)));
-    model.setAttribute('aria-label', `${view === 'assembled' ? 'Assembled' : 'Exploded'} view of wood veneer, aluminium honeycomb core and supporting sheet`);
+  const state = { progress: 1 };
+  let trigger, media, disposed = false;
+  const clamp = value => Math.max(0, Math.min(1, value));
+  const render = () => {
+    const progress = state.progress;
+    config.layers.forEach(layer => {
+      model.querySelector(`[data-layer="${layer.id}"]`).style.setProperty('--layer-y', layer.closed + (layer.open - layer.closed) * progress);
+    });
+    section.dataset.reveal = progress.toFixed(4);
+    buttons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.view === (progress < .5 ? 'assembled' : 'exploded'))));
+    model.setAttribute('aria-label', `${progress < .5 ? 'Assembled' : 'Exploded'} view of wood veneer, aluminium honeycomb core and supporting sheet`);
   };
-  buttons.forEach(button => button.addEventListener('click', () => selectView(button.dataset.view)));
-  selectView('exploded');
+  const selectView = event => {
+    const exploded = event.currentTarget.dataset.view === 'exploded';
+    if (trigger) {
+      const target = exploded ? .95 : .02;
+      window.scrollTo({ top: trigger.start + (trigger.end - trigger.start) * target, behavior: 'smooth' });
+    } else {
+      state.progress = exploded ? 1 : 0;
+      render();
+    }
+  };
+  buttons.forEach(button => button.addEventListener('click', selectView));
   controls.hidden = false;
+  render();
+  const destroy = () => {
+    disposed = true;
+    media?.revert();
+    buttons.forEach(button => button.removeEventListener('click', selectView));
+    state.progress = 1;
+    render();
+    window.removeEventListener('pagehide', hide);
+  };
+  const hide = event => {
+    if (event.persisted) return;
+    // Pause resources while retaining pin spacing for browser history capture.
+    disposed = true;
+    trigger?.getTween()?.pause();
+    buttons.forEach(button => button.removeEventListener('click', selectView));
+  };
+  window.honeycombReveal = { destroy };
+  window.addEventListener('pagehide', hide);
+  async function start() {
+    if (!window.gsap || !window.ScrollTrigger) return;
+    await Promise.all([...model.querySelectorAll('img')].map(image => image.decode()));
+    await document.fonts.ready;
+    if (disposed) return;
+    gsap.registerPlugin(ScrollTrigger);
+    media = gsap.matchMedia();
+    // A short viewport gets the readable static composition and manual controls.
+    media.add('(prefers-reduced-motion: no-preference) and (min-height: 620px)', () => {
+      section.classList.add('hc-scroll');
+      const tween = gsap.to(state, {
+        progress: 1, duration: 1,
+        ease: value => {
+          const p = clamp((value - config.revealStart) / (config.revealEnd - config.revealStart));
+          return p * p * (3 - 2 * p);
+        },
+        startAt: { progress: 0 }, onUpdate: render,
+        scrollTrigger: {
+          id: 'honeycomb-layers', trigger: section,
+          start: () => {
+            const top = document.querySelector('header').offsetHeight + 10;
+            section.style.setProperty('--hc-top', `${top}px`);
+            return `top ${top}px`;
+          },
+          end: () => `+=${innerHeight * config.scrollDistance}`,
+          pin: true, scrub: config.scrub, invalidateOnRefresh: true,
+          refreshPriority: 1,
+        },
+      });
+      trigger = tween.scrollTrigger;
+      return () => {
+        trigger = undefined;
+        section.classList.remove('hc-scroll');
+        state.progress = 1;
+        render();
+      };
+    });
+    ScrollTrigger.sort();
+    ScrollTrigger.refresh();
+  }
+  start().catch(() => { media?.revert(); state.progress = 1; render(); });
 })();

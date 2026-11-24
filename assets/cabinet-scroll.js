@@ -4,6 +4,8 @@
   const scene = bench?.querySelector('.dg');
   const image = scene?.querySelector('img');
   if (!image || !window.gsap || !window.ScrollTrigger) return;
+  window.cabinetStudy?.destroy();
+  let disposed = false, media;
 
   // Project the original shutter onto its moving plane. The cabinet body stays still.
   const source = [[223, 32], [694, 122], [694, 727], [223, 786]];
@@ -78,8 +80,9 @@
   }
 
   function start() {
+    if (disposed) return;
     gsap.registerPlugin(ScrollTrigger);
-    const media = gsap.matchMedia();
+    media = gsap.matchMedia();
     media.add({ reduce: '(prefers-reduced-motion:reduce)', animate: '(prefers-reduced-motion:no-preference)' }, context => {
       if (context.conditions.reduce) return;
       const track = document.createElement('div');
@@ -121,13 +124,22 @@
         foot.textContent = originalFoot;
       };
     });
-    window.addEventListener('pagehide', event => {
-      if (event.persisted) return;
-      // Preserve layout until navigation completes so history can restore it.
-      resize.disconnect();
-    });
     ScrollTrigger.refresh();
   }
+  const hide = event => {
+    if (event.persisted) return;
+    // Preserve layout until navigation completes so history can restore it.
+    disposed = true;
+    resize.disconnect();
+  };
+  window.addEventListener('pagehide', hide);
+  window.cabinetStudy = { destroy() {
+    disposed = true;
+    media?.revert();
+    resize.disconnect();
+    visual.remove();
+    window.removeEventListener('pagehide', hide);
+  } };
   image.loading = 'eager';
   image.decode().then(() => document.fonts.ready).then(start).catch(() => visual.remove());
 })();
