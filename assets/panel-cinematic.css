@@ -24,6 +24,11 @@
 .pc-state{min-width:160px;letter-spacing:.08em}
 .pc-progress{height:1px;flex:1;background:#51485c20}.pc-progress span{display:block;height:100%;background:#93809f;transform-origin:left}
 .pc-footer a{color:inherit;text-decoration:none;border-bottom:1px solid #93809f66;padding-bottom:3px}
+.pc-playback{font:inherit;color:inherit;background:none;border:1px solid #93809f66;padding:8px 12px;cursor:pointer;white-space:nowrap}
+.pc-playback[hidden]{display:none}
+.pc-playback:focus-visible{outline:2px solid #887194;outline-offset:4px}
+.pc-autoplay .pc-hint{display:none}
+@media(max-width:767px){.pc-autoplay .pc-state{display:none}.pc-autoplay .pc-footer{gap:12px}}
 /* Non-animated (including failed scripts/assets): fully closed product + copy. */
 .pc-section:not(.pc-animated) .pc-stage{height:auto;min-height:800px}
 .pc-section:not(.pc-animated) .pc-copy{position:relative;top:auto;transform:none;padding:200px 0 100px}
