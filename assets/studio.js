@@ -11,16 +11,17 @@ const form=$('#f'),message=$('#fm');$$('input:not([type=checkbox]),textarea',for
 form.querySelector('[type="submit"]').disabled = false;
 if (!window.gsap || !window.ScrollTrigger) return;
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.config({ ignoreMobileResize: true });
 const motion = gsap.matchMedia();
 motion.add({ animate: '(prefers-reduced-motion:no-preference)', desktop: '(min-width:861px)' }, context => {
   if (!context.conditions.animate) return;
   gsap.from('.hero h1', { y:45, opacity:0, duration:1.3, ease:'power3.out', delay:.1 });
   gsap.from('.hero-summary,.hero .btns,.hero-apps', { y:22, opacity:0, duration:1, stagger:.12, ease:'power3.out', delay:.25 });
   gsap.from('.hero-architecture>img', { scale:1.12, duration:2, ease:'power2.out' });
+  if (context.conditions.desktop) {
   $$('.sec h2,.fixing-copy,.construction-heading>p').forEach(el => gsap.from(el, { y:35, opacity:0, duration:1.1, ease:'power3.out', scrollTrigger:{trigger:el,start:'top 94%',once:true} }));
   $$('.adv li').forEach(el => gsap.from(el, { x:context.conditions.desktop?35:0, y:context.conditions.desktop?0:15, opacity:0, duration:.8, ease:'power3.out', scrollTrigger:{trigger:el,start:'top 95%',once:true} }));
   $$('.application-photo').forEach(el => gsap.from(el.querySelector('img'), { clipPath:'inset(10% 0 10% 0)', scale:1.08, duration:1.3, ease:'power3.out', scrollTrigger:{trigger:el,start:'top 94%',once:true} }));
-  if (context.conditions.desktop) {
     gsap.to('.hero-architecture>img', { yPercent:12, ease:'none', scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1} });
     gsap.to('.bl h2 span', { x:60, ease:'none', scrollTrigger:{trigger:'.bl',start:'top bottom',end:'bottom top',scrub:1.2} });
   }

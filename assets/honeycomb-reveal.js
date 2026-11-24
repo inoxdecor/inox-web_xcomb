@@ -58,7 +58,9 @@
     gsap.registerPlugin(ScrollTrigger);
     media = gsap.matchMedia();
     // A short viewport gets the readable static composition and manual controls.
-    media.add('(prefers-reduced-motion: no-preference) and (min-height: 620px)', () => {
+    media.add({ animate: '(prefers-reduced-motion:no-preference)', mobile: '(max-width:767px)', short: '(max-height:619px)' }, context => {
+      if (!context.conditions.animate || context.conditions.short) return;
+      const mobile = context.conditions.mobile;
       section.classList.add('hc-scroll');
       const tween = gsap.to(state, {
         progress: 1, duration: 1,
@@ -70,12 +72,13 @@
         scrollTrigger: {
           id: 'honeycomb-layers', trigger: section,
           start: () => {
+            if (mobile) return 'top 85%';
             const top = document.querySelector('header').offsetHeight + 10;
             section.style.setProperty('--hc-top', `${top}px`);
             return `top ${top}px`;
           },
-          end: () => `+=${innerHeight * config.scrollDistance}`,
-          pin: true, scrub: config.scrub, invalidateOnRefresh: true,
+          end: () => mobile ? `top ${document.querySelector('header').offsetHeight + 16}px` : `+=${document.documentElement.clientHeight * config.scrollDistance}`,
+          pin: !mobile, scrub: mobile ? .25 : config.scrub, invalidateOnRefresh: true,
           refreshPriority: 1,
         },
       });

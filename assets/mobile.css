@@ -1,0 +1,80 @@
+/* Phone layouts follow their content; desktop compositions stay in their sheets. */
+@media(max-width:767px){
+ html{scroll-padding-top:84px}
+ #hd .nav{height:72px}
+ #hd .honeycomb-brand img{height:46px}
+ #hd .mb{min-height:44px}
+ #hd.o ul{top:72px;max-height:calc(100svh - 72px);overflow-y:auto}
+ #hd.s{background:#211b24fa;backdrop-filter:none;box-shadow:none}
+ .hero{min-height:0;height:auto;padding-bottom:54px}
+ .hero .w{padding:116px 0 0}
+ .hero h1{margin:20px 0 24px;font-size:clamp(38px,10vw,66px)}
+ .hero .sub{font-size:20px;line-height:1.45}
+ .hero-properties{font-size:11px;margin-top:14px;line-height:1.8}
+ .hero .btns{margin-top:24px;gap:18px}
+ .hero-consult{font-size:14px}
+ .hero-apps{margin-top:24px;font-size:10px;max-width:none}
+ .hero-product{position:relative;inset:auto;width:min(58%,240px);margin:22px auto 8px}
+ .hero-product>img{filter:drop-shadow(0 12px 12px #120d2033)}
+ .product-orbit{display:none}
+ .hero-scroll{bottom:16px;font-size:10px}
+ #lat{opacity:.07}
+ #panel-journey .pc-stage{height:auto;min-height:0;padding:32px 20px;display:flex;flex-direction:column;gap:18px}
+ #panel-journey .pc-meta{position:static;inset:auto;font-size:10px}
+ #panel-journey .pc-product{position:relative;inset:auto;width:min(100%,380px);transform:none;align-self:center;margin:-10px 0 -20px}
+ #panel-journey .pc-scene{overflow:visible}
+ #panel-journey .pc-copy{position:static;inset:auto;transform:none;width:100%;max-width:none;padding:0}
+ #panel-journey .pc-copy h2{font-size:clamp(30px,8vw,40px)}
+ #panel-journey .pc-description{font-size:16px;line-height:1.55;margin:14px 0 18px}
+ #panel-journey .pc-rows button{min-height:44px;font-size:14px;padding:10px 0}
+ #panel-journey .pc-footer{position:static;gap:12px;font-size:11px;flex-wrap:wrap}
+ #panel-journey .pc-playback{min-height:44px}
+ #panel-journey .pc-state{display:none}
+ #material .hc-study,#material.hc-scroll .hc-study{height:auto;min-height:0;grid-template-rows:auto clamp(165px,51vw,220px) auto auto;padding:32px 0;gap:18px}
+ #material .hc-layer{filter:none}
+ #material .hc-materials{gap:12px}
+ #material .hc-view-control button{min-height:44px}
+ .sec,#why,#applications,#advantages,#built{padding-block:52px}
+ #why .construction-heading{gap:18px;margin-bottom:24px}
+ #why .construction-heading>p{font-size:15px;line-height:1.65}
+ #why .cabinet-stage{padding:16px 12px}
+ #why .cabinet-animated .construction-controls{opacity:1;padding:16px}
+ #why .cabinet-animated .cabinet-motion{filter:none}
+ #why .cabinet-door-outside>polygon:first-child{filter:none}
+ #why .cabinet-animated #part-context{font-size:13px;line-height:1.55}
+ #why .cabinet-animated .tabs button{font-size:12px;min-height:58px}
+ #why .construction-caption{min-height:0}
+ #why .construction-cta{font-size:13px}
+ #why .stage-foot span{display:block;font-size:9px}
+ #advantages .adv{column-gap:18px}
+ #advantages .adv li{grid-template-columns:1fr 24px;gap:8px;min-height:92px;padding:18px 0}
+ #advantages .adv li::before{display:none}
+ #advantages .adv b,#advantages .adv li:last-child b{font-size:19px;letter-spacing:-.025em}
+ #advantages .w>.fine{font-size:12px}
+ #applications .simple-application-gallery{margin-top:26px;gap:20px}
+ #applications .application-caption{font-size:16px;padding:12px 0}
+ #applications .remaining-applications{margin-top:24px;gap:14px 20px}
+ #applications .remaining-applications a{font-size:14px}
+ #finishes .fn{gap:28px;grid-template-columns:minmax(0,1fr)}
+ #finishes .fn>div{min-width:0}
+ #finishes .fn>div>div:has(>.btn){gap:12px!important}
+ #finishes .mood-stage{height:220px}
+ #finishes .fs{margin-top:16px;grid-template-columns:repeat(3,minmax(0,1fr))}
+ #finishes .fs button{min-height:54px;min-width:0;width:100%;aspect-ratio:auto}
+ #finishes .fine{font-size:13px}
+ #built .tag{margin-bottom:20px}
+ #built .built-description{font-size:15px;line-height:1.65}
+ #built .wr{margin-top:24px}
+ #enquire{padding:52px 0!important}
+ #enquire .cg{gap:28px}
+ #enquire form{padding:20px 16px}
+ #enquire .ct{font-size:15px}
+ #enquire .fallback-note{font-size:13px}
+ #enquire label{font-size:14px;line-height:1.5}
+ #enquire input,#enquire select,#enquire textarea{font-size:16px;min-height:46px}
+ #enquire input[type=checkbox]{min-height:20px;min-width:20px}
+ footer{padding:36px 0 24px}
+ footer .g{gap:26px}
+ footer ul{font-size:14px;line-height:1.65}
+ footer small{margin-top:26px;font-size:11px}
+}

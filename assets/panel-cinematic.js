@@ -99,7 +99,7 @@
       section.classList.add('pc-autoplay');
       if (!short) {
         section.classList.add('pc-animated');
-        gsap.set(product, { left: mobile ? '50%' : '73%', top: mobile ? (compact ? '27%' : '29%') : '49%', width: mobile ? (compact ? '68%' : '78%') : '46%', xPercent: -50, yPercent: -50, x: 0, y: 0 });
+        if (!mobile) gsap.set(product, { left: '73%', top: '49%', width: '46%', xPercent: -50, yPercent: -50, x: 0, y: 0 });
       }
       gsap.set(copy, { autoAlpha: 1 });
       gsap.set(details, { autoAlpha: 1, y: 0 });

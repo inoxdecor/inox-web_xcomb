@@ -43,7 +43,10 @@
   door.className = 'cabinet-door';
   door.innerHTML = `<svg viewBox="0 0 1881 836" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="cabinet-shutter-clip"><polygon points="223,32 694,122 694,727 223,786"/></clipPath><filter id="cabinet-grain"><feTurbulence type="fractalNoise" baseFrequency=".7" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".13"/></feComponentTransfer><feBlend in="SourceGraphic" mode="multiply"/></filter><linearGradient id="cabinet-surface"><stop stop-color="#c3bbae"/><stop offset="1" stop-color="#a59e91"/></linearGradient></defs><g clip-path="url(#cabinet-shutter-clip)"><image class="cabinet-door-inside" href="${image.getAttribute('src')}" width="1881" height="836"/><g class="cabinet-door-outside"><polygon points="223,32 694,122 694,727 223,786" fill="url(#cabinet-surface)" filter="url(#cabinet-grain)"/><path d="M230 34L230 783" stroke="#e6dfd3" stroke-width="6"/><polygon points="223,32 694,122 694,727 223,786" fill="none" stroke="#d7cfc0" stroke-width="3"/></g></g></svg>`;
   visual.append(body, door);
+  // Avoid exposing the 1881px source plane at full size for even one mobile frame.
+  door.style.zoom = '.001';
   scene.prepend(visual);
+  door.style.zoom = String(visual.clientWidth / 1881);
   const resize = new ResizeObserver(() => { door.style.zoom = String(visual.clientWidth / 1881); });
   resize.observe(visual);
   const exterior = door.querySelector('.cabinet-door-outside');
@@ -74,7 +77,7 @@
       previousReveal = reveal;
       bench.classList.toggle('cabinet-revealed', reveal);
       markers.forEach(marker => { marker.inert = !reveal; marker.setAttribute('aria-hidden', String(!reveal)); });
-      controls.inert = !reveal;
+      controls.inert = !reveal && !matchMedia('(max-width:767px)').matches;
       foot.textContent = reveal ? originalFoot : 'SCROLL TO OPEN THE CABINET ↓';
     }
   }
@@ -94,9 +97,11 @@
       let distance = 0, top = 100;
       const measure = () => {
         const height = bench.offsetHeight;
-        const fits = height <= innerHeight - 100;
-        distance = fits ? Math.max(500, innerHeight * .85) : 0;
-        top = Math.max(100, (innerHeight - height) / 2);
+        const viewport = document.documentElement.clientHeight;
+        const mobile = matchMedia('(max-width:767px)').matches;
+        top = mobile ? document.querySelector('header').offsetHeight + 12 : Math.max(100, (viewport - height) / 2);
+        const fits = height <= viewport - top - 16;
+        distance = fits ? (mobile ? Math.min(320, viewport * .35) : Math.max(500, viewport * .85)) : 0;
         track.style.setProperty('--cabinet-height', `${height + distance}px`);
         track.style.setProperty('--cabinet-top', `${top}px`);
         track.classList.toggle('cabinet-static', !fits);
